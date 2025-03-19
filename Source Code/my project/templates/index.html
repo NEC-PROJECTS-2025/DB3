@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Predictor</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script>
+        function showSection(sectionId, bgImage) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).style.display = 'block';
+
+            // Change the background image
+            document.body.style.backgroundImage = url('${bgImage}');
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+            document.body.style.backgroundRepeat = 'no-repeat';
+            document.body.style.transition = 'background 0.5s ease-in-out';
+        }
+
+        // Show the Home section by default when the page loads
+        window.onload = function() {
+            showSection('home', 'C:\Users\HP\Downloads\my project\static\images\home page.jpg');  // Set default background
+        };
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="#" onclick="showSection('home', 'C:\Users\HP\Downloads\my project\static\images\home page.jpg')" class="nav-link">Home</a>
+            <a href="#" onclick="showSection('about', '\static\images\about page.jpg')" class="nav-link">About</a>
+            <a href="#" onclick="showSection('prediction', 'C:\Users\HP\Downloads\my project\static\images\three img.jpg')" class="nav-link">Prediction</a>
+            <a href="#" onclick="showSection('result', 'C:\Users\HP\Downloads\my project\static\images\ev.jpg')" class="nav-link">Result</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Home Section -->
+        <section id="home" class="section">
+            <h1>Welcome to ML Predictor</h1>
+            <p>Harness the power of machine learning to make accurate predictions using our advanced Random Forest model.</p>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section" style="display: none;">
+            <h2>About Our Project</h2>
+            <h2>Optimizing Class Imbalance and Enhancing Intrusion 
+                Detection in SDN Environments using ML and DL 
+                Models</h3>
+            <p>Our machine learning model utilizes Random Forest classification to provide accurate predictions.</p>
+            <ul>
+                <li>Data cleaning and missing value imputation</li>
+                <li>Feature scaling and standardization</li>
+                <li>Categorical variable encoding</li>
+                <li>SMOTE for handling class imbalance</li>
+            </ul>
+        </section>
+
+        <!-- Prediction Section -->
+        <section id="prediction" class="section" style="display: none;">
+            <h2>Upload Your Data</h2>
+            <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="file-input" accept=".csv" required>
+                <button type="submit">Upload</button>
+            </form>
+        </section>
+
+        <!-- Result Section -->
+        <section id="result" class="section" style="display: none;">
+            <h2>Prediction Results</h2>
+            <div id="result-status"></div>
+        </section>
+    </main>
+</body>
+</html>

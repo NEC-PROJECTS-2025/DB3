@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Results</title>
+    <link rel="stylesheet" href="{{ url_for('send_static', path='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .accuracy {
+            font-size: 22px;
+            font-weight: bold;
+            color: green;
+        }
+        .report {
+            text-align: left;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Model Training Results</h2>
+    
+    <p class="accuracy">WRF Model Accuracy: <span>{{ wrf_accuracy }}</span></p>
+    
+    <div class="report">
+        <h3>Classification Report</h3>
+        <table>
+            <tr>
+                <th>Class</th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>F1-score</th>
+                <th>Support</th>
+            </tr>
+            {% for label, metrics in report.items() %}
+                {% if label not in ["accuracy", "macro avg", "weighted avg"] %}
+                <tr>
+                    <td>{{ label }}</td>
+                    <td>{{ "%.2f" | format(metrics['precision'] * 100) }}%</td>
+                    <td>{{ "%.2f" | format(metrics['recall'] * 100) }}%</td>
+                    <td>{{ "%.2f" | format(metrics['f1-score'] * 100) }}%</td>
+                    <td>{{ metrics['support'] }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+    
+    <br>
+    <a href="/" style="text-decoration: none; padding: 10px 20px; background-color: #28a745; color: white; border-radius: 5px;">Upload Another File</a>
+</div>
+
+</body>
+</html>
